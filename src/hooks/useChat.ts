@@ -1,36 +1,39 @@
-import { useState, useCallback } from 'react';
-import { getResponse } from '../services/chatbot';
+import { useState, useCallback, useEffect } from 'react';
 import type { Message } from '../types/chat';
 
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "QUIET 🙂🙂🙂"
+      content: "Hi there, how can I help you?"
     }
   ]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const sendMessage = useCallback(async (content: string) => {
-    // Add user message
+    if (isDisabled) return;
+
     const userMessage: Message = { role: 'user', content };
     setMessages(prev => [...prev, userMessage]);
-
-    // Simulate AI thinking
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Get response
-    const response = getResponse();
-    
-    const botMessage: Message = {
-      role: 'assistant',
-      content: response.text
-    };
-    
-    setMessages(prev => [...prev, botMessage]);
-    setIsLoading(false);
-  }, []);
+    // Add maintenance message and disable chat
+    setTimeout(() => {
+      const botMessage: Message = {
+        role: 'assistant',
+        content: "Sorry, the services are currently under maintanance. Please contact Sir Suryansh Srivastava for further updates."
+      };
+      setMessages(prev => [...prev, botMessage]);
+      setIsLoading(false);
+      setIsDisabled(true);
 
-  return { messages, sendMessage, isLoading };
+      // Close chat after delay
+      setTimeout(() => {
+        document.dispatchEvent(new CustomEvent('closeChatBot'));
+      }, 3000);
+    }, 1000);
+  }, [isDisabled]);
+
+  return { messages, sendMessage, isLoading, isDisabled };
 }
