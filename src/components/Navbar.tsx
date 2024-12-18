@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, Brain, Menu, X } from 'lucide-react';
+import { RobotMascot } from './mascot/RobotMascot';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -12,6 +13,7 @@ export default function Navbar() {
             <div className="flex-shrink-0 flex items-center space-x-2">
               <Shield className="h-8 w-8 text-cyan-500" />
               <Brain className="h-8 w-8 text-purple-500" />
+              <RobotMascot />
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
