@@ -25,7 +25,7 @@ export default function About() {
 
         <div className="bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800 shadow-2xl hover:border-cyan-500/50 transition-all duration-500">
           <p className="text-lg leading-relaxed text-gray-300 space-y-6">
-            Hello, and welcome to my portfolio! 😀
+            Hello, and welcome to my portfolio! 😃
             <br /><br />
             I'm <span className="font-bold text-2xl">
               <GradientText className="animate-pulse">SURYANSH SRIVASTAVA</GradientText>
